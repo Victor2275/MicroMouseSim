@@ -18,5 +18,19 @@ class Square {
         this.wallRight = wallRight;
     }
 
+    public boolean getWallUp() {
+        return wallUp;
+    }
 
+    public boolean getWallDown() {
+        return wallDown;
+    }
+
+    public boolean getWallLeft() {
+        return wallLeft;
+    }
+
+    public boolean getWallRight() {
+        return wallRight;
+    }
 }

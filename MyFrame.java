@@ -16,4 +16,8 @@ public class MyFrame extends JFrame{
 
 
     }
+
+    public void squareDraw(int x, int y, Square square, Graphics g) {
+        panel.createSquare(x, y, square, g);
+    }
 }

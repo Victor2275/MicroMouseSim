@@ -3,20 +3,29 @@
 import java.io.*;
 import static java.lang.System.*;
 
+import java.awt.Graphics;
+import java.awt.Image;
+
 public class Main {
     public static void main(String[] args) {
         final int size = 16;
+        Square[][] maze = new Square[size][size];
+        boolean[] line1 = new boolean[size];
+        boolean[] line2 = new boolean[size + 1];
+        boolean[] line3 = new boolean[size];
+
+        MyFrame window = new MyFrame();
+        MyPanel panel = new MyPanel();
+        Graphics g = window.getGraphics();
+        
+        panel.createSquare(3, 3, new Square(true, true, true , false), g);
+            
+/*
+
         try {
             FileReader fr = new FileReader("Maze.txt");
             BufferedReader br = new BufferedReader(fr);
 
-            Square[][] maze = new Square[size][size];
-
-
-            boolean[] line1 = new boolean[size];
-            boolean[] line2 = new boolean[size + 1];
-            boolean[] line3 = new boolean[size];
-                
 
             String str;
             str = br.readLine();
@@ -68,6 +77,7 @@ public class Main {
                         maze[mazeLine][i] = new Square(line1[i], line3[i], line2[i], line2[i+1]);
                         line1[i] = line3[i];
                     }
+                    mazeLine++;
                 }
 
 
@@ -83,11 +93,17 @@ public class Main {
 
             e.printStackTrace();
         }
+
+        for(int i = 0; i < maze.length; i++) {
+            for(int j = 0; j < maze[i].length; j++) {
+                window.squareDraw(i, j, maze[i][j], g);
+            }
+        }
         
 
 
 
-
+*/
 
     }
 }
