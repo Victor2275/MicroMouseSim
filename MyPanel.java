@@ -3,15 +3,23 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+
+
 import javax.swing.JPanel;
 
 public class MyPanel extends JPanel{
+    private Mouse mouse;
+    
     MyPanel() {
+        mouse = new Mouse();
         this.setPreferredSize(new Dimension(820, 820));
     }
     
     public void paint(Graphics g) {
         Graphics2D g2D = (Graphics2D)g;
+        
+        
+        
         g2D.setPaint(Color.blue);
         g2D.setStroke(new BasicStroke(3));
         
@@ -91,6 +99,27 @@ public class MyPanel extends JPanel{
         g2D.setStroke(new BasicStroke(0));
         g2D.setPaint(new Color(250, 200, 50, 127));
         g2D.fillRect(360, 360, 100, 100);
+        g2D.setStroke(new BasicStroke(5));
+        g2D.setPaint(Color.blue);
+
+        double wait = System.currentTimeMillis();
+        mouse.display(g2D);
+        while(wait + 1000 > System.currentTimeMillis()){
+            
+        }
+        mouse.moveUp();
+
+
+
+
+    
+        
+
+
+
+
+
+
     }
  
 
