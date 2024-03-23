@@ -4,6 +4,8 @@ class Square {
     private boolean wallLeft;
     private boolean wallRight;
 
+
+
     public Square() {
         wallUp = false;
         wallDown = false;
@@ -33,4 +35,22 @@ class Square {
     public boolean getWallRight() {
         return wallRight;
     }
+
+    public void setWallUp(boolean wallUp) {
+        this.wallUp = wallUp;
+    }
+
+    public void setWallDown(boolean wallDown) {
+        this.wallDown = wallDown;
+    }
+
+    public void setWallLeft(boolean wallLeft) {
+        this.wallLeft = wallLeft;
+    }
+
+    public void setWallRight(boolean wallRight) {
+        this.wallRight = wallRight;
+    }
+
+    
 }

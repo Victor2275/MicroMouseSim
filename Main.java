@@ -18,10 +18,10 @@ public class Main {
         MyPanel panel = new MyPanel();
         Graphics g = window.getGraphics();
         
-        panel.createSquare(3, 3, new Square(true, true, true , false), g);
+        
             
-/*
 
+/*  
         try {
             FileReader fr = new FileReader("Maze.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -103,7 +103,9 @@ public class Main {
 
 
 
-*/
 
+
+    }
+*/
     }
 }
