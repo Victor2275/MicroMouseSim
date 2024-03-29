@@ -5,8 +5,9 @@ import java.io.BufferedReader;
 public class Mouse {
     private int xLocation;
     private int yLocation;
+    private final int scaleFactor = 1;
 
-    
+    /*
     public Mouse() {
         xLocation = 35;
         yLocation = 785;
@@ -36,8 +37,39 @@ public class Mouse {
         xLocation += 50;
     }
 
+ */
+        
+    public Mouse() {
+        xLocation = 0;
+        yLocation = 0;
+
+    }
+
+
+    public Mouse(int x, int y) {
+        xLocation = x;
+        yLocation = y;
+
+    }
+
+    public void moveUp() {
+        yLocation--;
+    }
+
+    public void moveDown() {
+        yLocation++;
+    }
+
+    public void moveLeft() {
+        xLocation--;
+    }
+
+    public void moveRight() {
+        xLocation ++;
+    }
+
     public void display(Graphics g) {
-        g.fillOval(xLocation - 10, yLocation - 10, 20, 20);
+        g.fillOval(((xLocation * 50) + 25)/scaleFactor, ((yLocation * 50) + 25)/scaleFactor, 20/scaleFactor, 20/scaleFactor);
     }
 
 }

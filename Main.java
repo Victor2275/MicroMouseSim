@@ -10,9 +10,10 @@ import java.lang.*;
 public class Main {
     
     public static void main(String[] args) {
-
-        MyFrame window = new MyFrame();
-        MyPanel panel = new MyPanel();
+        Maze maze = new Maze();
+        maze.checkSquare(2, 4);
+        MyFrame window = new MyFrame(maze);
+        MyPanel panel = new MyPanel(maze);
         
 
     }
