@@ -5,8 +5,8 @@ public class MyFrame extends JFrame{
     
     private MyPanel panel;
     
-    MyFrame(Maze m) {
-        panel = new MyPanel(m);
+    MyFrame(Maze maze, Mouse mouse) {
+        panel = new MyPanel(maze, mouse);
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(panel);

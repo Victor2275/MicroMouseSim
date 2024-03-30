@@ -12,9 +12,9 @@ public class MyPanel extends JPanel{
     private Maze maze;
     private final int scaleFactor = 1;
     
-    MyPanel(Maze maze) {
-        mouse = new Mouse(9,7);
+    MyPanel(Maze maze, Mouse mouse) {
         this.maze = maze;
+        this.mouse = mouse;
         this.setPreferredSize(new Dimension(820/scaleFactor, 820/scaleFactor));
     }
     

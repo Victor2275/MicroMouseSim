@@ -85,7 +85,23 @@ public class Maze {
         mazeFound = new Square[size][size];
         for(int i = 0; i < mazeFound.length; i++) {
             for(int j = 0; j < mazeFound[i].length; j++) {
-                mazeFound[i][j] = new Square();
+                boolean up = false;
+                boolean down = false;
+                boolean left = false;
+                boolean right = false;
+                if(i == 0) {
+                    up = true;
+                }
+                if(i == mazeFound.length-1) {
+                    down = true;
+                }
+                if(j == 0) {
+                    left = true;
+                }
+                if(j == mazeFound.length-1) {
+                    right = true;
+                }
+                mazeFound[i][j] = new Square(up,down,left,right);
             }
         }
 
@@ -129,10 +145,53 @@ public class Maze {
         if(x > 0) {mazeFound[y][x-1].setWallRight(mazeActual[y][x-1].getWallRight());}
         if(y < size-1) {mazeFound[y+1][x].setWallUp(mazeActual[y+1][x].getWallUp());}
         if(y > 0) {mazeFound[y-1][x].setWallDown(mazeActual[y-1][x].getWallDown());}
-        
-        //if (x > 0) { mazeFound[y][x-1].setWallRight(mazeActual[y][x-1].getWallRight()); }
-        //if (x < size-1) { mazeFound[y][x+1].setWallLeft(mazeActual[y][x+1].getWallLeft()); }
-        //if (y > 0) { mazeFound[y-1][x].setWallUp(mazeActual[y-1][x].getWallUp()); }
-        //if (y < size-1) { mazeFound[y+1][x].setWallDown(mazeActual[y+1][x].getWallDown()); }
     }   
+
+    public int distanceFromCenter(int x, int y, int startingLength, Boolean[][] check) {
+
+
+
+        Boolean[][] currentCheck = new Boolean[check.length][check.length];
+        for(int i = 0; i < check.length; i++) {
+            for(int j = 0; j < check[i].length; j++) {
+                currentCheck[i][j] = check[i][j];
+            }
+        }
+
+
+
+        int value = Integer.MAX_VALUE;
+        
+        if((x == 7 || x == 8) && (y == 7 || y == 8)) {
+            return startingLength;
+        }
+        if(check[y][x]) {
+            return Integer.MAX_VALUE;
+        }
+
+        currentCheck[y][x] = true;
+
+        if(!mazeFound[y][x].getWallUp()) {
+            if(distanceFromCenter(x, y - 1, startingLength + 1, currentCheck) < value) {
+                value = distanceFromCenter(x, y-1, startingLength + 1, currentCheck);
+            }
+        }
+        if(!mazeFound[y][x].getWallDown()) {
+            if(distanceFromCenter(x, y + 1, startingLength + 1, currentCheck) < value) {
+                value = distanceFromCenter(x, y+1, startingLength + 1, currentCheck);
+            }
+        }
+        if(!mazeFound[y][x].getWallRight()) {
+            if(distanceFromCenter(x + 1, y, startingLength + 1, currentCheck) < value) {
+                value = distanceFromCenter(x + 1, y, startingLength + 1, currentCheck);
+            }
+        }
+        if(!mazeFound[y][x].getWallLeft()) {
+            if(distanceFromCenter(x - 1, y, startingLength + 1, currentCheck) < value) {
+                value = distanceFromCenter(x-1, y, startingLength + 1, currentCheck);
+            }
+        }
+        return value;
+    }
+
 }
