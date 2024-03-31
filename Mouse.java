@@ -8,6 +8,7 @@ public class Mouse {
     
 
     private final int scaleFactor = 1;
+    private final int size = 16;
     private Maze maze;
 
         
@@ -15,6 +16,7 @@ public class Mouse {
         xLocation = 0;
         yLocation = 0;
         maze = m;
+        m.checkSquare(xLocation, yLocation);
 
 
     }
@@ -23,6 +25,8 @@ public class Mouse {
         xLocation = x;
         yLocation = y;
         maze = m;
+        m.checkSquare(xLocation, yLocation);
+
 
     }
 
@@ -66,6 +70,13 @@ public class Mouse {
     public void moveRight() {
         xLocation ++;
         maze.checkSquare(xLocation, yLocation);
+    }
+
+    public boolean atCenter() {
+        if((xLocation == size/2 - 1 || xLocation == size/2) && (yLocation == size/2 - 1 || yLocation == size/2) ){
+            return true;
+        }
+        return false;
     }
 
 

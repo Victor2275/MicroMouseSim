@@ -8,6 +8,7 @@ public class Maze {
     private Square[][] mazeActual;
     private Square[][] mazeFound;
     private final int scaleFactor = 1;
+    private int direction;
 
     public Maze() {
                 
@@ -16,6 +17,7 @@ public class Maze {
         boolean[] line1 = new boolean[size];
         boolean[] line2 = new boolean[size + 1];
         boolean[] line3 = new boolean[size];
+        direction = -1;
 
         try {
             FileReader fr = new FileReader("Maze.txt");
@@ -145,13 +147,37 @@ public class Maze {
         if(x > 0) {mazeFound[y][x-1].setWallRight(mazeActual[y][x-1].getWallRight());}
         if(y < size-1) {mazeFound[y+1][x].setWallUp(mazeActual[y+1][x].getWallUp());}
         if(y > 0) {mazeFound[y-1][x].setWallDown(mazeActual[y-1][x].getWallDown());}
-    }   
+    }  
+    
+    
+    public boolean canGoUp(int x, int y) {
+        return !mazeFound[y][x].getWallUp();
+    }
+    public boolean canGoDown(int x, int y) {
+        return !mazeFound[y][x].getWallDown();
+    }
+    public boolean canGoLeft(int x, int y) {
+        return !mazeFound[y][x].getWallLeft();
+    }
+    public boolean canGoRight(int x, int y) {
+        return !mazeFound[y][x].getWallRight();
+    }
 
-    public int distanceFromCenter(int x, int y, int startingLength, Boolean[][] check) {
 
 
+
+    public int distanceFromCenter(int x, int y, int startingLength, Boolean[][] check, int value) {
+        boolean checkUp = false;
+        boolean checkDown = false;
+        boolean checkRight = false;
+        boolean checkLeft = false;
+        
+        
+
+        int temp;
 
         Boolean[][] currentCheck = new Boolean[check.length][check.length];
+
         for(int i = 0; i < check.length; i++) {
             for(int j = 0; j < check[i].length; j++) {
                 currentCheck[i][j] = check[i][j];
@@ -159,39 +185,141 @@ public class Maze {
         }
 
 
-
-        int value = Integer.MAX_VALUE;
+        if(x < 0 || x > size-1 || y < 0 || y > size-1) {
+            return Integer.MAX_VALUE;
+        }
         
-        if((x == 7 || x == 8) && (y == 7 || y == 8)) {
+        if((x == size/2 - 1 || x == size/2) && (y == size/2 - 1 || y == size/2)) {
             return startingLength;
         }
+
         if(check[y][x]) {
             return Integer.MAX_VALUE;
         }
 
+
         currentCheck[y][x] = true;
 
-        if(!mazeFound[y][x].getWallUp()) {
-            if(distanceFromCenter(x, y - 1, startingLength + 1, currentCheck) < value) {
-                value = distanceFromCenter(x, y-1, startingLength + 1, currentCheck);
+        if(startingLength > value) {
+            return Integer.MAX_VALUE;
+        }
+
+        if(x <= 7) {
+            checkRight = true;
+            if(!mazeFound[y][x].getWallRight()) {
+                temp = distanceFromCenter(x + 1, y, startingLength + 1, currentCheck, value);
+                if(temp < value) {
+                    value = temp;
+                    direction = 2;
+                }
             }
         }
-        if(!mazeFound[y][x].getWallDown()) {
-            if(distanceFromCenter(x, y + 1, startingLength + 1, currentCheck) < value) {
-                value = distanceFromCenter(x, y+1, startingLength + 1, currentCheck);
+        else {
+            checkLeft = true;
+            if(!mazeFound[y][x].getWallLeft()) {
+                temp = distanceFromCenter(x - 1, y, startingLength + 1, currentCheck, value);
+                if(temp < value) {
+                    value = temp;
+                    direction = 4;
+                }
             }
         }
-        if(!mazeFound[y][x].getWallRight()) {
-            if(distanceFromCenter(x + 1, y, startingLength + 1, currentCheck) < value) {
-                value = distanceFromCenter(x + 1, y, startingLength + 1, currentCheck);
+
+        if(y >= 7) {
+            checkUp = true;
+            if(!mazeFound[y][x].getWallUp()) {
+                temp = distanceFromCenter(x, y - 1, startingLength + 1, currentCheck, value);
+                if(temp < value) {
+                    value = temp;
+                    direction = 1;
+                }
             }
         }
-        if(!mazeFound[y][x].getWallLeft()) {
-            if(distanceFromCenter(x - 1, y, startingLength + 1, currentCheck) < value) {
-                value = distanceFromCenter(x-1, y, startingLength + 1, currentCheck);
+        else {
+            checkDown = true;
+            if(!mazeFound[y][x].getWallDown()) {
+                temp = distanceFromCenter(x, y + 1, startingLength + 1, currentCheck, value);
+                if(temp < value) {
+                    value = temp;
+                    direction = 3;
+                }
+            }
+        }
+
+        if(checkRight) {
+            checkLeft = true;
+            if(!mazeFound[y][x].getWallLeft()) {
+                temp = distanceFromCenter(x - 1, y, startingLength + 1, currentCheck, value);
+                if(temp < value) {
+                    value = temp;
+                    direction = 4;
+                }
+            }
+        }
+        else {
+            checkRight = true;
+            if(!mazeFound[y][x].getWallRight()) {
+                temp = distanceFromCenter(x + 1, y, startingLength + 1, currentCheck, value);
+                if(temp < value) {
+                    value = temp;
+                    direction = 2;
+                }
+            }
+        }
+
+        if(checkUp) {
+            checkDown = true;
+            if(!mazeFound[y][x].getWallDown()) {
+                temp = distanceFromCenter(x, y + 1, startingLength + 1, currentCheck, value);
+                if(temp < value) {
+                    value = temp;
+                    direction = 3;
+                }
+            }  
+        }
+        else {
+            checkUp = true;
+            if(!mazeFound[y][x].getWallUp()) {
+                temp = distanceFromCenter(x, y - 1, startingLength + 1, currentCheck, value);
+                if(temp < value) {
+                    value = temp;
+                    direction = 1;
+                }
             }
         }
         return value;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Square[][] getMazeActual() {
+        return mazeActual;
+    }
+
+    public void setMazeActual(Square[][] mazeActual) {
+        this.mazeActual = mazeActual;
+    }
+
+    public Square[][] getMazeFound() {
+        return mazeFound;
+    }
+
+    public void setMazeFound(Square[][] mazeFound) {
+        this.mazeFound = mazeFound;
+    }
+
+    public int getScaleFactor() {
+        return scaleFactor;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 
 }
