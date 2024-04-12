@@ -7,13 +7,29 @@ public class Maze {
     private final int size = 16;
     private Square[][] mazeActual;
     private Square[][] mazeFound;
-    private final int scaleFactor = 1;
+    private int[][] distance;
+    private int[][] optimalPath;
+    private final int scaleFactor = 2;
     private int direction;
+
 
     public Maze() {
                 
         final int size = 16;
+
+        optimalPath = new int[size][size];
+
+        for(int i = 0; i < optimalPath.length; i++) {
+            for(int j = 0; j < optimalPath[i].length; j++) {
+                optimalPath[i][j] = 300;
+            }
+        }
+        
+        
         mazeActual = new Square[size][size];
+
+
+
         boolean[] line1 = new boolean[size];
         boolean[] line2 = new boolean[size + 1];
         boolean[] line3 = new boolean[size];
@@ -288,6 +304,111 @@ public class Maze {
             }
         }
         return value;
+    }
+
+    public void resetOptimalGoal(int goalX, int goalY){
+        for(int i = 0; i < optimalPath.length; i++) {
+            for(int j = 0; j < optimalPath[i].length; j++) {
+                optimalPath[i][j] = 300;
+            }
+        }
+
+        optimalPath[goalY][goalX] = 0;
+
+    }
+
+    public void resetOptimalCenter(){
+        for(int i = 0; i < optimalPath.length; i++) {
+            for(int j = 0; j < optimalPath[i].length; j++) {
+                optimalPath[i][j] = 300;
+            }
+        }
+
+        optimalPath[7][7] = 0;
+        optimalPath[7][8] = 0;
+        optimalPath[8][7] = 0;
+        optimalPath[8][8] = 0;
+    }
+
+
+    public void dijikstraAlgorithm() {
+        resetOptimalCenter();
+
+
+
+        for(int i = 0; i < 255; i++) {
+            boolean complete = true;
+            for(int y = 0; y < optimalPath.length; y++) {
+                for(int x = 0; x < optimalPath[y].length; x++) {
+                    if(optimalPath[y][x] == i) {
+                        if (!mazeFound[y][x].getWallUp() && optimalPath[y - 1][x] > i) {
+                            optimalPath[y - 1][x] = i + 1;
+                            complete = false;
+                        }
+                        if (!mazeFound[y][x].getWallDown() && optimalPath[y + 1][x] > i) {
+                            optimalPath[y + 1][x] = i + 1;
+                            complete = false;
+                        }
+                        if (!mazeFound[y][x].getWallLeft() && optimalPath[y][x - 1] > i) {
+                            optimalPath[y][x - 1] = i + 1;
+                            complete = false;
+                        }
+                        if (!mazeFound[y][x].getWallRight() && optimalPath[y][x + 1] > i) {
+                            optimalPath[y][x + 1] = i + 1;
+                            complete = false;
+                        }
+                    }	
+                }
+            }
+           if(complete) {
+                break;
+            }
+            
+        }
+    }
+
+
+    public void dijikstraAlgorithm(int goalX, int goalY) {
+        resetOptimalGoal(goalX, goalY);
+
+
+
+        for(int i = 0; i < 255; i++) {
+            boolean complete = true;
+            for(int y = 0; y < optimalPath.length; y++) {
+                for(int x = 0; x < optimalPath[y].length; x++) {
+                    if(optimalPath[y][x] == i) {
+                        if (!mazeFound[y][x].getWallUp() && optimalPath[y - 1][x] > i) {
+                            optimalPath[y - 1][x] = i + 1;
+                            complete = false;
+                        }
+                        if (!mazeFound[y][x].getWallDown() && optimalPath[y + 1][x] > i) {
+                            optimalPath[y + 1][x] = i + 1;
+                            complete = false;
+                        }
+                        if (!mazeFound[y][x].getWallLeft() && optimalPath[y][x - 1] > i) {
+                            optimalPath[y][x - 1] = i + 1;
+                            complete = false;
+                        }
+                        if (!mazeFound[y][x].getWallRight() && optimalPath[y][x + 1] > i) {
+                            optimalPath[y][x + 1] = i + 1;
+                            complete = false;
+                        }
+                    }	
+                }
+            }
+           if(complete) {
+                break;
+            }
+            
+        }
+    }
+
+
+
+
+    public int[][] getOptimal() {
+        return optimalPath;
     }
 
     public int getSize() {

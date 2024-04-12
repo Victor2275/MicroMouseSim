@@ -7,7 +7,7 @@ public class Mouse {
     private int yLocation;
     
 
-    private final int scaleFactor = 1;
+    private final int scaleFactor = 2;
     private final int size = 16;
     private Maze maze;
 
@@ -73,10 +73,11 @@ public class Mouse {
     }
 
     public boolean atCenter() {
-        if((xLocation == size/2 - 1 || xLocation == size/2) && (yLocation == size/2 - 1 || yLocation == size/2) ){
-            return true;
-        }
-        return false;
+        return (xLocation == size/2 - 1 || xLocation == size/2) && (yLocation == size/2 - 1 || yLocation == size/2);
+    }
+
+    public boolean atLocation(int x, int y) {
+        return xLocation == x && yLocation == y;
     }
 
 

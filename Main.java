@@ -28,31 +28,66 @@ public class Main {
 
         
         while(!mouse.atCenter()) {
-            //Thread.sleep(1000);
-            
-            int distance = maze.distanceFromCenter(mouse.getXLocation(), mouse.getYLocation(), 0, empty, 20);
-            System.out.println(distance);
-            if(maze.getDirection() == 1) {
+            Thread.sleep(100);
+            maze.dijikstraAlgorithm();
+            int[][] dist = maze.getOptimal();
+
+            if(!(mouse.getYLocation() == 0) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation() - 1][mouse.getXLocation()] && maze.canGoUp(mouse.getXLocation(), mouse.getYLocation())) {
                 mouse.moveUp();
             }
-            if(maze.getDirection() == 2) {
+            else if(!(mouse.getXLocation() == 15) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation()][mouse.getXLocation() + 1]  && maze.canGoRight(mouse.getXLocation(), mouse.getYLocation())) {
                 mouse.moveRight();
             }
-            if(maze.getDirection() == 3) {
+            else if((mouse.getYLocation() != 15) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation() + 1][mouse.getXLocation()]  && maze.canGoDown(mouse.getXLocation(), mouse.getYLocation())) {
                 mouse.moveDown();
             }
-            else if(maze.getDirection() == 4){
+            else if(!(mouse.getXLocation() == 0) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation()][mouse.getXLocation() - 1]  && maze.canGoLeft(mouse.getXLocation(), mouse.getYLocation())){
                 mouse.moveLeft();
             }
             window.repaint();
         }
 
-        /*for(int i = 0; i < 3; i++) {
-            Thread.sleep(1000);
-            mouse.moveDown();
+        while(!mouse.atLocation(0, 15)) {
+            Thread.sleep(100);
+            maze.dijikstraAlgorithm(0, 15);
+            int[][] dist = maze.getOptimal();
+
+            if(!(mouse.getYLocation() == 0) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation() - 1][mouse.getXLocation()] && maze.canGoUp(mouse.getXLocation(), mouse.getYLocation())) {
+                mouse.moveUp();
+            }
+            else if(!(mouse.getXLocation() == 15) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation()][mouse.getXLocation() + 1]  && maze.canGoRight(mouse.getXLocation(), mouse.getYLocation())) {
+                mouse.moveRight();
+            }
+            else if((mouse.getYLocation() != 15) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation() + 1][mouse.getXLocation()]  && maze.canGoDown(mouse.getXLocation(), mouse.getYLocation())) {
+                mouse.moveDown();
+            }
+            else if(!(mouse.getXLocation() == 0) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation()][mouse.getXLocation() - 1]  && maze.canGoLeft(mouse.getXLocation(), mouse.getYLocation())){
+                mouse.moveLeft();
+            }
             window.repaint();
         }
-        */
+
+        while(!mouse.atCenter()) {
+            Thread.sleep(100);
+            maze.dijikstraAlgorithm();
+            int[][] dist = maze.getOptimal();
+
+            if(!(mouse.getYLocation() == 0) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation() - 1][mouse.getXLocation()] && maze.canGoUp(mouse.getXLocation(), mouse.getYLocation())) {
+                mouse.moveUp();
+            }
+            else if(!(mouse.getXLocation() == 15) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation()][mouse.getXLocation() + 1]  && maze.canGoRight(mouse.getXLocation(), mouse.getYLocation())) {
+                mouse.moveRight();
+            }
+            else if((mouse.getYLocation() != 15) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation() + 1][mouse.getXLocation()]  && maze.canGoDown(mouse.getXLocation(), mouse.getYLocation())) {
+                mouse.moveDown();
+            }
+            else if(!(mouse.getXLocation() == 0) && dist[mouse.getYLocation()][mouse.getXLocation()] > dist[mouse.getYLocation()][mouse.getXLocation() - 1]  && maze.canGoLeft(mouse.getXLocation(), mouse.getYLocation())){
+                mouse.moveLeft();
+            }
+            window.repaint();
+        }
+        
+
     }
     
 

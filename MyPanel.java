@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 public class MyPanel extends JPanel{
     private Mouse mouse;
     private Maze maze;
-    private final int scaleFactor = 1;
+    private final int scaleFactor = 2;
     
     MyPanel(Maze maze, Mouse mouse) {
         this.maze = maze;
