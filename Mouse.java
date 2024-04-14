@@ -68,7 +68,7 @@ public class Mouse {
     }
 
     public void moveRight() {
-        xLocation ++;
+        xLocation++;
         maze.checkSquare(xLocation, yLocation);
     }
 
