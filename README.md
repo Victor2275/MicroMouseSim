@@ -1,0 +1,1 @@
+This is a simple micromouse simulation I created. To use it, simply put a maze of your choice in the "maze.txt" file and run. Currently the mouse starts in the bottom left corner and will solve the maze using an algorithm I wrote.
