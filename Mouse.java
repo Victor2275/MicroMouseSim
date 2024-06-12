@@ -7,8 +7,8 @@ public class Mouse {
     private int yLocation;
     
 
-    private final int scaleFactor = 2;
-    private final int size = 16;
+    private final int scaleFactor = 1;
+    private final int size = 8;
     private Maze maze;
 
         

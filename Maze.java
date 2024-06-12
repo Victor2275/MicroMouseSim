@@ -4,18 +4,17 @@ import java.io.IOException;
 import java.awt.*;
 
 public class Maze {
-    private final int size = 16;
+    private final int size = 8;
     private Square[][] mazeActual;
     private Square[][] mazeFound;
     private int[][] distance;
     private int[][] optimalPath;
-    private final int scaleFactor = 2;
+    private final int scaleFactor = 1;
     private int direction;
 
 
     public Maze() {
-                
-        final int size = 16;
+
 
         optimalPath = new int[size][size];
 
@@ -135,7 +134,7 @@ public class Maze {
         }
         g2D.setStroke(new BasicStroke(0));
         g2D.setPaint(new Color(250, 200, 50, 127));
-        g2D.fillRect(360/scaleFactor, 360/scaleFactor, 100/scaleFactor, 100/scaleFactor);
+        g2D.fillRect(160/scaleFactor, 160/scaleFactor, 100/scaleFactor, 100/scaleFactor);
         g2D.setStroke(new BasicStroke(5));
         g2D.setPaint(Color.blue);
     }
@@ -324,10 +323,10 @@ public class Maze {
             }
         }
 
-        optimalPath[7][7] = 0;
-        optimalPath[7][8] = 0;
-        optimalPath[8][7] = 0;
-        optimalPath[8][8] = 0;
+        optimalPath[size/2 - 1][size/2 - 1] = 0;
+        optimalPath[size/2 - 1][size/2] = 0;
+        optimalPath[size/2][size/2 - 1] = 0;
+        optimalPath[size/2][size/2] = 0;
     }
 
 
