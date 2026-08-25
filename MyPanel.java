@@ -16,9 +16,11 @@ public class MyPanel extends JPanel{
         this.maze = maze;
         this.mouse = mouse;
         this.setPreferredSize(new Dimension(820/scaleFactor, 820/scaleFactor));
+        this.setBackground(new Color(30, 30, 30));
     }
     
     public void paint(Graphics g) {
+        super.paint(g);
         Graphics2D g2D = (Graphics2D)g;
         g2D.setStroke(new BasicStroke(3));
         maze.drawMaze(g2D);
